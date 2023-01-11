@@ -1,0 +1,98 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_application_last/Video/AppID.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'dart:async';
+
+Future<void> izinleriIste() async {
+  var camerastatus = await Permission.camera.status;
+  var microfonstatus = await Permission.microphone.status;
+  if (!camerastatus.isGranted) {
+    await Permission.camera.request();
+  }
+
+  if (!microfonstatus.isGranted) {
+    await Permission.microphone.request();
+  }
+}
+
+class VideoCalls extends StatefulWidget {
+  const VideoCalls({super.key});
+
+  @override
+  _WikipediaExplorerState createState() => _WikipediaExplorerState();
+}
+
+class _WikipediaExplorerState extends State<VideoCalls> {
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isAndroid) {
+      Platform.isAndroid;
+    }
+    if (Platform.isIOS) {
+      Platform.isIOS;
+    }
+  }
+
+  late InAppWebViewController webViewController;
+
+  Future<bool> _onBack() async {
+    bool goBack;
+    var value = await webViewController.canGoBack();
+    if (value) {
+      webViewController.goBack();
+      return false;
+    } else {
+      exit(0);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: _onBack,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: const Text(
+            'Online',
+          ),
+          centerTitle: true,
+        ),
+        body: SafeArea(
+          child: InAppWebView(
+            initialUrlRequest: URLRequest(
+              url: Uri.parse(
+                "https://meet.jit.si/",
+              ),
+            ),
+            initialOptions: InAppWebViewGroupOptions(
+              crossPlatform: InAppWebViewOptions(
+                userAgent:
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
+                javaScriptCanOpenWindowsAutomatically: true,
+                useShouldOverrideUrlLoading: true,
+                mediaPlaybackRequiresUserGesture: false,
+              ),
+            ),
+            onWebViewCreated: (InAppWebViewController controller) {
+              webViewController = controller;
+            },
+            androidOnPermissionRequest: (InAppWebViewController controller,
+                String origin, List<String> resources) async {
+              return PermissionRequestResponse(
+                  resources: resources,
+                  action: PermissionRequestResponseAction.GRANT);
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+//https://meet.jit.si/plugintestroom
