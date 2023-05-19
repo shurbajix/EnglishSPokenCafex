@@ -1,11 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_last/Video/AppID.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 
 Future<void> izinleriIste() async {
@@ -21,6 +18,8 @@ Future<void> izinleriIste() async {
 }
 
 class Junior3 extends StatefulWidget {
+  const Junior3({super.key});
+
   @override
   _WikipediaExplorerState createState() => _WikipediaExplorerState();
 }
@@ -50,10 +49,19 @@ class _WikipediaExplorerState extends State<Junior3> {
     }
   }
 
+  Future<bool> _onWillPop() async {
+    if (await webViewController.canGoBack()) {
+      webViewController.goBack();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onBack,
+      onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,

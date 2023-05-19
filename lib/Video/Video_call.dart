@@ -1,11 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_last/Video/AppID.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 
 Future<void> izinleriIste() async {
@@ -52,10 +49,20 @@ class _WikipediaExplorerState extends State<VideoCalls> {
     }
   }
 
+  Future<bool> _onWillPop() async {
+    if (await webViewController.canGoBack()) {
+      webViewController.goBack();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  bool _isLoading = true;
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onBack,
+      onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
@@ -88,6 +95,30 @@ class _WikipediaExplorerState extends State<VideoCalls> {
               return PermissionRequestResponse(
                   resources: resources,
                   action: PermissionRequestResponseAction.GRANT);
+            },
+            onLoadStart: (controller, url) {
+              setState(() {
+                _isLoading = true;
+              });
+            },
+            onLoadStop: (controller, url) {
+              setState(() {
+                _isLoading = false;
+              });
+            },
+            onLoadError: (controller, url, code, message) {
+              setState(
+                () {
+                  _isLoading = false;
+                },
+              );
+              if (_isLoading) {
+                Positioned.fill(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
             },
           ),
         ),

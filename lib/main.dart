@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'HomePage.dart';
-import 'Video/Video_call.dart';
+import 'Screens/Gather/Canspeakfuntly.dart';
 //import 'package:firebase_messaging/firebase_messaging.dart';
 //import 'package:firebase_database/firebase_database.dart';
 import 'globals.dart' as globals;
@@ -20,7 +20,7 @@ void main() async {
   izinleriIste();
 
   runApp(
-    const MyApp(),
+    MyApp(),
   );
 }
 
@@ -52,14 +52,15 @@ class _MyAppState extends State<MyApp> {
     OneSignal.shared.setAppId(oneSingalAppId);
     var status = await OneSignal.shared.getDeviceState().then((change) {});
     String tokenId = status.subscriptionStatus.userId;
-    OneSignal.shared
-        .promptUserForPushNotificationPermission()
-        .then((accepted) {});
+    OneSignal.shared.promptUserForPushNotificationPermission().then(
+          (accepted) {},
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      title: 'English Spoken Cafe',
       navigatorKey: globals.appNavgaitor,
       debugShowCheckedModeBanner: false,
       home: Scaffold(

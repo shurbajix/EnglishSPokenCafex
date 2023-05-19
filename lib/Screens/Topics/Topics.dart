@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../classes/Classe.dart';
 
 class Topics extends StatefulWidget {

@@ -66,7 +66,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '257930519607',
     projectId: 'english-spoken-cfae',
     storageBucket: 'english-spoken-cfae.appspot.com',
-    iosClientId: '257930519607-q6t4qdmdaiog6cml07jm7fomo7dnc7qo.apps.googleusercontent.com',
+    iosClientId:
+        '257930519607-q6t4qdmdaiog6cml07jm7fomo7dnc7qo.apps.googleusercontent.com',
     iosBundleId: 'com.example.flutterApplication1',
   );
 
@@ -76,7 +77,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '257930519607',
     projectId: 'english-spoken-cfae',
     storageBucket: 'english-spoken-cfae.appspot.com',
-    iosClientId: '257930519607-q6t4qdmdaiog6cml07jm7fomo7dnc7qo.apps.googleusercontent.com',
+    iosClientId:
+        '257930519607-q6t4qdmdaiog6cml07jm7fomo7dnc7qo.apps.googleusercontent.com',
     iosBundleId: 'com.example.flutterApplication1',
   );
 }

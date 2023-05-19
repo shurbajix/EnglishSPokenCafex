@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_last/Screens/Gather_Junior/Junior3.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../Screens/About us/About-us.dart';
@@ -49,14 +50,14 @@ List Topices = [
   'images/weekend.png',
   'images/junior 1.png',
   'images/junior 2.png',
-  'images/junior first day.png',
+  'images/junior 3.png',
 ];
 
-class topicesd {
+class Topicesd {
   String text;
   String whats;
   dynamic imagesd;
-  topicesd({required this.text, required this.whats, required this.imagesd});
+  Topicesd({required this.text, required this.whats, required this.imagesd});
 }
 
 List Topicelist = [

@@ -4,7 +4,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class Friday extends StatefulWidget {
-  Friday({Key? key}) : super(key: key);
+  const Friday({Key? key}) : super(key: key);
 
   @override
   State<Friday> createState() => _FridayState();
@@ -28,42 +28,46 @@ class _FridayState extends State<Friday> {
       body: Column(
         children: [
           Expanded(
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: WebView(
-                initialUrl: 'https://www.englishspokencafe.com/friday/',
-                javascriptMode: JavascriptMode.unrestricted,
-                onWebViewCreated: (WebViewController webViewController) {
-                  _webViewController = webViewController;
-                  _controller.complete(webViewController);
-                },
-                onProgress: (int progress) {
-                  print("WebView is loading(progress:$progress%)");
-                  _webViewController.runJavascript(
-                    "document.getElementsByTagName('header')[0].style.display='none'",
-                  );
-                  _webViewController.runJavascript(
-                    "document.getElementsByTagName('footer')[0].style.display='none'",
-                  );
-                },
-                onPageStarted: (String url) {
-                  print('page started loading :$url');
-                  _webViewController.runJavascript(
-                    "document.getElementsByTagName('header')[0].style.display='none'",
-                  );
-                  _webViewController.runJavascript(
-                    "document.getElementsByTagName('footer')[0].style.display='none'",
-                  );
-                },
-                onPageFinished: (String url) {
-                  print('Page finished loading: $url');
-                  _webViewController.runJavascript(
-                    "document.getElementsByTagName('header')[0].style.display='none'",
-                  );
-                  _webViewController.runJavascript(
-                    "document.getElementsByTagName('footer')[0].style.display='none'",
-                  );
-                },
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+      height:MediaQuery.of(context).size.height ,
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: WebView(
+                  initialUrl: 'https://www.englishspokencafe.com/friday/',
+                  javascriptMode: JavascriptMode.unrestricted,
+                  onWebViewCreated: (WebViewController webViewController) {
+                    _webViewController = webViewController;
+                    _controller.complete(webViewController);
+                  },
+                  onProgress: (int progress) {
+                    print("WebView is loading(progress:$progress%)");
+                    _webViewController.runJavascript(
+                      "document.getElementsByTagName('header')[0].style.display='none'",
+                    );
+                    _webViewController.runJavascript(
+                      "document.getElementsByTagName('footer')[0].style.display='none'",
+                    );
+                  },
+                  onPageStarted: (String url) {
+                    print('page started loading :$url');
+                    _webViewController.runJavascript(
+                      "document.getElementsByTagName('header')[0].style.display='none'",
+                    );
+                    _webViewController.runJavascript(
+                      "document.getElementsByTagName('footer')[0].style.display='none'",
+                    );
+                  },
+                  onPageFinished: (String url) {
+                    print('Page finished loading: $url');
+                    _webViewController.runJavascript(
+                      "document.getElementsByTagName('header')[0].style.display='none'",
+                    );
+                    _webViewController.runJavascript(
+                      "document.getElementsByTagName('footer')[0].style.display='none'",
+                    );
+                  },
+                ),
               ),
             ),
           ),

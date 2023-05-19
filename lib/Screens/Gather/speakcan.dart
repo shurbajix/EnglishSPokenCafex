@@ -18,6 +18,8 @@ Future<void> izinleriIste() async {
 }
 
 class speakcan extends StatefulWidget {
+  const speakcan({super.key});
+
   @override
   _WikipediaExplorerState createState() => _WikipediaExplorerState();
 }
@@ -47,10 +49,19 @@ class _WikipediaExplorerState extends State<speakcan> {
     }
   }
 
+  Future<bool> _onWillPop() async {
+    if (await webViewController.canGoBack()) {
+      webViewController.goBack();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onBack,
+      onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,

@@ -21,6 +21,8 @@ Future<void> izinleriIste() async {
 }
 
 class Junior2 extends StatefulWidget {
+  const Junior2({super.key});
+
   @override
   _WikipediaExplorerState createState() => _WikipediaExplorerState();
 }
@@ -50,10 +52,19 @@ class _WikipediaExplorerState extends State<Junior2> {
     }
   }
 
+  Future<bool> _onWillPop() async {
+    if (await webViewController.canGoBack()) {
+      webViewController.goBack();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onBack,
+      onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
