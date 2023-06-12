@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class Junior2 extends StatefulWidget {
   const Junior2({Key? key}) : super(key: key);
@@ -21,6 +21,14 @@ class _Junior2State extends State<Junior2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+          ),
+        ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.black,
@@ -31,7 +39,7 @@ class _Junior2State extends State<Junior2> {
           Expanded(
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
-      height:MediaQuery.of(context).size.height ,
+              height: MediaQuery.of(context).size.height,
               child: AspectRatio(
                 aspectRatio: 1,
                 child: WebView(

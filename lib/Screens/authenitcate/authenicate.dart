@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Authenticat extends StatefulWidget {
-  Authenticat({Key? key}) : super(key: key);
+  const Authenticat({Key? key}) : super(key: key);
 
   @override
   State<Authenticat> createState() => _AuthenticatState();

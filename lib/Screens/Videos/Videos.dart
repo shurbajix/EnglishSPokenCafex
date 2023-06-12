@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../classes/Classe.dart';
 
@@ -20,6 +19,14 @@ class _VideosState extends State<Videos> {
     return Scaffold(
       backgroundColor: const Color(0xffD9D9D9),
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+          ),
+        ),
         centerTitle: true,
         title: const Text('Videos'),
         backgroundColor: Colors.black,

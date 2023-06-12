@@ -1,11 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_application_last/Screens/Gather_Junior/Junior1.dart';
 import 'package:flutter_application_last/Screens/Gather_Junior/Junior2.dart';
 import 'package:flutter_application_last/Screens/Gather_Junior/Junior3.dart';
-import 'package:flutter_application_last/classes/Classe.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -24,7 +22,7 @@ Future<void> izinleriIste() async {
 }
 
 class Gather_Junior extends StatefulWidget {
-  Gather_Junior({Key? key}) : super(key: key);
+  const Gather_Junior({Key? key}) : super(key: key);
 
   @override
   State<Gather_Junior> createState() => _Gather_JuniorState();
@@ -61,6 +59,14 @@ class _Gather_JuniorState extends State<Gather_Junior> {
     return Scaffold(
       backgroundColor: const Color(0xffD9D9D9),
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+          ),
+        ),
         centerTitle: true,
         title: const Text(
           'Gather Junior',

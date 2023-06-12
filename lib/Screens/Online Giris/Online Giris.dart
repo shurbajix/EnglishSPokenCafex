@@ -14,6 +14,14 @@ class _OnlineGState extends State<OnlineG> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+          ),
+        ),
         title: const Text('Online Giris'),
         backgroundColor: Colors.black,
         centerTitle: true,

@@ -13,7 +13,7 @@ class _NotfoicationState extends State<Notfoication> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(this.widget.postId),
+        child: Text(widget.postId),
       ),
     );
   }

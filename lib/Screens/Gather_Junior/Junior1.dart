@@ -1,11 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_last/Video/AppID.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'dart:async';
 
 Future<void> izinleriIste() async {
@@ -67,6 +65,14 @@ class _WikipediaExplorerState extends State<Junior1> {
       onWillPop: _onWillPop,
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+            ),
+          ),
           backgroundColor: Colors.black,
           title: const Text('Junior 1'),
           centerTitle: true,

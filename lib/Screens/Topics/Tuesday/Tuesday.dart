@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Tuesday extends StatefulWidget {
@@ -20,6 +21,14 @@ class _TuesdayState extends State<Tuesday> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+          ),
+        ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.black,
@@ -32,7 +41,7 @@ class _TuesdayState extends State<Tuesday> {
           Expanded(
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
-      height:MediaQuery.of(context).size.height ,
+              height: MediaQuery.of(context).size.height,
               child: AspectRatio(
                 aspectRatio: 1,
                 child: WebView(

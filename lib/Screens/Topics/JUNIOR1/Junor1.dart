@@ -1,10 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Junior1 extends StatefulWidget {
@@ -24,6 +21,14 @@ class _Junior1State extends State<Junior1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+          ),
+        ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.black,
@@ -34,7 +39,7 @@ class _Junior1State extends State<Junior1> {
           Expanded(
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
-      height:MediaQuery.of(context).size.height ,
+              height: MediaQuery.of(context).size.height,
               child: AspectRatio(
                 aspectRatio: 1,
                 child: WebView(

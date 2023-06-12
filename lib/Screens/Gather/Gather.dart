@@ -1,22 +1,16 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_last/Screens/Gather/Canspeakfuntly.dart';
 import 'package:flutter_application_last/Screens/Gather/Commongather.dart';
 import 'package:flutter_application_last/Screens/Gather/Spaekcant.dart';
 import 'package:flutter_application_last/Screens/Gather/speakcan.dart';
-import 'package:flutter_application_last/Screens/Gather_Junior/Junior1.dart';
-import 'package:flutter_application_last/Screens/Gather_Junior/Junior3.dart';
-import 'package:flutter_application_last/Screens/Topics/JUNIOR2/Junior2.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Gathers extends StatefulWidget {
-  Gathers({Key? key}) : super(key: key);
+  const Gathers({Key? key}) : super(key: key);
 
   @override
   State<Gathers> createState() => _GathersState();
@@ -33,6 +27,14 @@ class _GathersState extends State<Gathers> {
     return Scaffold(
       backgroundColor: const Color(0xffD9D9D9),
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+          ),
+        ),
         centerTitle: true,
         title: const Text('Gather'),
         backgroundColor: Colors.black,

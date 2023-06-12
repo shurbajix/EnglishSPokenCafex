@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Mondays extends StatefulWidget {
@@ -27,6 +28,14 @@ class _MondaysState extends State<Mondays> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+          ),
+        ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.black,
@@ -37,7 +46,7 @@ class _MondaysState extends State<Mondays> {
           Expanded(
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
-      height:MediaQuery.of(context).size.height,
+              height: MediaQuery.of(context).size.height,
               child: AspectRatio(
                 aspectRatio: 1,
                 child: WebView(
@@ -57,7 +66,7 @@ class _MondaysState extends State<Mondays> {
                     );
                     _webViewController.runJavascript(
                         "document.getElementsByTagName('header')[0].style.display='none'");
-            
+
                     _webViewController.runJavascript(
                       "document.getElementsByTagName('footer')[0].style.display='none'",
                     );

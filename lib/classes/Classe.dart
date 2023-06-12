@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_application_last/Screens/Gather_Junior/Junior3.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../Screens/About us/About-us.dart';
 import '../Screens/Gather/Gather.dart';

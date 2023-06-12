@@ -17,6 +17,8 @@ Future<void> main() async {
 
 ///
 class YoutubeApp extends StatelessWidget {
+  const YoutubeApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,6 +38,8 @@ class YoutubeApp extends StatelessWidget {
 
 ///
 class YoutubeAppDemo extends StatefulWidget {
+  const YoutubeAppDemo({super.key});
+
   @override
   _YoutubeAppDemoState createState() => _YoutubeAppDemoState();
 }
@@ -136,7 +140,7 @@ class _YoutubeAppDemoState extends State<YoutubeAppDemo> {
 ///
 class Controls extends StatelessWidget {
   ///
-  const Controls();
+  const Controls({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +148,7 @@ class Controls extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [],
+        children: const [],
       ),
     );
   }

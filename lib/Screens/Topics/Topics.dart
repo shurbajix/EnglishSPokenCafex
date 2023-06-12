@@ -17,6 +17,14 @@ class _TopicsState extends State<Topics> {
     return Scaffold(
       backgroundColor: const Color(0xffD9D9D9),
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.black,
         elevation: 0,

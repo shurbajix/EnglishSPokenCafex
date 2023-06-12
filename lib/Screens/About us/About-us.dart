@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/link.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -21,6 +22,14 @@ class _AboutusState extends State<Aboutus> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+          ),
+        ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.black,
