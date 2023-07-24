@@ -1,11 +1,10 @@
 import 'dart:async';
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
-import 'package:html/parser.dart' as parser;
 
 class Friday extends StatefulWidget {
   const Friday({Key? key}) : super(key: key);
@@ -21,7 +20,6 @@ class _FridayState extends State<Friday> {
   late WebViewController _webViewController;
   final bool _notificationOpened = false;
   String _selectedWord = ''; // Selected word to show the definition
-  bool _isDictionaryOpen = false; // Flag to track dictionary pop-up state
   String _definition = ''; // Definition of the selected word
 
   @override
@@ -43,71 +41,18 @@ class _FridayState extends State<Friday> {
     }
   }
 
-  void showDictionaryDefinition(String word) {
-    setState(() {
-      _selectedWord = word;
-      _isDictionaryOpen = true;
-    });
-
-    // Make web scraping request to retrieve the definition of the word
-    fetchDefinition(word).then((definition) {
-      setState(() {
-        _definition = definition;
-      });
-
-      showModalBottomSheet(
-        context: context,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(16),
-          ),
-        ),
-        builder: (BuildContext context) {
-          return Container(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Dictionary Definition',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8),
-                Text(
-                  _definition,
-                  style: TextStyle(fontSize: 16),
-                ),
-                SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _isDictionaryOpen = false;
-                      _selectedWord = '';
-                      _definition = '';
-                    });
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Close'),
-                ),
-              ],
-            ),
-          );
-        },
-      );
-    });
-  }
-
-  Future<String> fetchDefinition(String word) async {
-    final url = 'https://tureng.com/tr/turkce-ingilizce/$word';
+  Future<String> fetchDefinitionFromAPI(String word) async {
+    const lang = 'en'; // Language for English
+    final url = 'https://api.dictionaryapi.dev/api/v2/entries/$lang/$word';
 
     try {
       final response = await http.get(Uri.parse(url));
+
       if (response.statusCode == 200) {
-        // Parse the HTML response to extract the definition
-        final definition = parseDefinitionFromHtml(response.body);
+        final List<dynamic> jsonResponse = json.decode(response.body);
+        final firstEntry = jsonResponse.first;
+        final List<dynamic> meanings = firstEntry['meanings'];
+        final definition = meanings.first['definitions'].first['definition'];
         return definition;
       } else {
         throw 'Failed to fetch definition. Status code: ${response.statusCode}';
@@ -117,14 +62,55 @@ class _FridayState extends State<Friday> {
     }
   }
 
-  String parseDefinitionFromHtml(String htmlString) {
-    final document = parser.parse(htmlString);
-    final definitionElement = document.querySelector('.turkish');
-    if (definitionElement != null) {
-      return definitionElement.text;
-    } else {
-      return 'No definition found.';
+  void showDictionaryDefinition(String word) async {
+    setState(() {
+      _selectedWord = word;
+    });
+
+    try {
+      final definition = await fetchDefinitionFromAPI(word);
+      setState(() {
+        _definition = definition;
+      });
+    } catch (e) {
+      print('Error fetching definition: $e');
     }
+
+    showDefinitionPopupMenu(_definition);
+  }
+
+  void showDefinitionPopupMenu(String definition) {
+    final RenderBox overlay =
+        Overlay.of(context).context.findRenderObject() as RenderBox;
+    final RelativeRect position = RelativeRect.fromRect(
+      Rect.fromCenter(
+        center: overlay.localToGlobal(overlay.size.center(Offset.zero)),
+        width: 0,
+        height: 0,
+      ),
+      Offset.zero & overlay.size,
+    );
+
+    final PopupMenuThemeData popupMenuTheme = PopupMenuTheme.of(context);
+    final TextStyle defaultStyle = popupMenuTheme.textStyle ?? TextStyle();
+
+    final List<PopupMenuEntry<String>> popupItems = <PopupMenuEntry<String>>[
+      PopupMenuItem<String>(
+        enabled: false,
+        child: Text(
+          definition,
+          style: defaultStyle.copyWith(fontWeight: FontWeight.bold),
+        ),
+      ),
+    ];
+
+    showMenu<String>(
+      context: context,
+      elevation: popupMenuTheme.elevation,
+      items: popupItems,
+      position: position,
+      shape: popupMenuTheme.shape,
+    );
   }
 
   @override
@@ -147,6 +133,28 @@ class _FridayState extends State<Friday> {
         elevation: 0,
         backgroundColor: Colors.black,
         title: const Text('Friday'),
+        actions: [
+          PopupMenuButton(
+            itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+              PopupMenuItem(
+                child: ListTile(
+                  title: Text(
+                    _selectedWord,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(_definition),
+                ),
+              ),
+            ],
+            onSelected: (value) {
+              setState(() {
+                _selectedWord = '';
+                _definition = '';
+              });
+            },
+            icon: Icon(Icons.info_outline),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -201,9 +209,9 @@ class _FridayState extends State<Friday> {
                           JavascriptChannel(
                             name: 'DictionaryChannel',
                             onMessageReceived: (JavascriptMessage message) {
-                              if (!_isDictionaryOpen) {
-                                showDictionaryDefinition(message.message);
-                              }
+                              setState(() {
+                                _definition = message.message;
+                              });
                             },
                           ),
                         },
