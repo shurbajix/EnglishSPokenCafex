@@ -1,4 +1,3 @@
-
 import '../Screens/About us/About-us.dart';
 import '../Screens/Gather/Gather.dart';
 import '../Screens/Gather_Junior/Gather_Junior.dart';
@@ -98,4 +97,10 @@ List GatherJunior = [
   'images/Junior-1-gather.png',
   'images/Junior-2-gather.png',
   'images/Junior-3-gather.png',
+];
+
+List speaklevel = [
+  'I can\'t Speak',
+  'I can Speak',
+  'I Can Speak Fluently',
 ];

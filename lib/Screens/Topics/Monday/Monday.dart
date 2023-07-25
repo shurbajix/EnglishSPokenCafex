@@ -1,7 +1,7 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+
+import '../../../classes/Classe.dart';
 
 class Mondays extends StatefulWidget {
   const Mondays({
@@ -19,15 +19,12 @@ class Mondays extends StatefulWidget {
 }
 
 class _MondaysState extends State<Mondays> {
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
-
-  late WebViewController _webViewController;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Speak level'),
+        centerTitle: true,
         leading: IconButton(
           onPressed: () {
             Get.back();
@@ -36,66 +33,42 @@ class _MondaysState extends State<Mondays> {
             Icons.arrow_back_ios_new,
           ),
         ),
-        centerTitle: true,
-        elevation: 0,
         backgroundColor: Colors.black,
-        title: const Text('Monday'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: WebView(
-                  initialUrl: 'https://www.englishspokencafe.com/monday/',
-                  javascriptMode: JavascriptMode.unrestricted,
-                  onWebViewCreated: (
-                    WebViewController webViewController,
-                  ) {
-                    _webViewController = webViewController;
-                    _controller.complete(
-                      webViewController,
-                    );
-                  },
-                  onProgress: (int progress) {
-                    print(
-                      "WebView is loading(progress:$progress%)",
-                    );
-                    _webViewController.runJavascript(
-                        "document.getElementsByTagName('header')[0].style.display='none'");
-
-                    _webViewController.runJavascript(
-                      "document.getElementsByTagName('footer')[0].style.display='none'",
-                    );
-                  },
-                  onPageStarted: (String url) {
-                    print(
-                      'page started loading :$url',
-                    );
-                    _webViewController.runJavascript(
-                      "document.getElementsByTagName('header')[0].style.display='none'",
-                    );
-                    _webViewController.runJavascript(
-                      "document.getElementsByTagName('footer')[0].style.display='none'",
-                    );
-                  },
-                  onPageFinished: (String url) {
-                    print(
-                      'Page finished loading: $url',
-                    );
-                    _webViewController.runJavascript(
-                      "document.getElementsByTagName('header')[0].style.display='none'",
-                    );
-                    _webViewController.runJavascript(
-                      "document.getElementsByTagName('footer')[0].style.display='none'",
-                    );
-                  },
+          ListView.builder(
+            itemCount: 3,
+            shrinkWrap: true,
+            itemBuilder: (BuildContext context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: SizedBox(
+                  width: 50,
+                  height: 60,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      shadowColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          20,
+                        ),
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      speaklevel[index],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ],
       ),
