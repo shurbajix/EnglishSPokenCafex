@@ -14,15 +14,15 @@ class Thursday extends StatefulWidget {
 
 class _ThursdayState extends State<Thursday> {
   List topicsspeak = [
-    'https://www.englishspokencafe.com/i-cant-speak-monday/',
-    'https://www.englishspokencafe.com/i-can-speak-monday/',
-    'https://www.englishspokencafe.com/i-can-speak-f-monday/',
+    'https://www.englishspokencafe.com/i-cant-speak-thursday/',
+    'https://www.englishspokencafe.com/i-can-speak-thursday/',
+    'https://www.englishspokencafe.com/i-can-speak-f-thursday/',
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Speak level'),
+        title: Text('Thursday'),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -60,6 +60,7 @@ class _ThursdayState extends State<Thursday> {
                       Get.to(
                         Thursdaytopic(
                           url: topicsspeak[index],
+                          initialUrl: topicsspeak[index],
                         ),
                       );
                     },

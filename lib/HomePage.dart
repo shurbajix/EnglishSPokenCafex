@@ -49,7 +49,7 @@ class _HomePagesState extends State<HomePages> {
                         onPressed: () {
                           Get.to(
                             pages[index],
-                            transition: Transition.circularReveal,
+                            //transition: Transition.circularReveal,
                           );
                         },
                         child: Card(

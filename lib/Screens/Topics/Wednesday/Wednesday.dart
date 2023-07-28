@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_last/Screens/Topics/Wednesday/Wedensdaytopic.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
+import '../../../classes/Classe.dart';
 
 class Wednesday extends StatefulWidget {
   const Wednesday({Key? key}) : super(key: key);
@@ -16,11 +19,20 @@ class _WednesdayState extends State<Wednesday> {
       Completer<WebViewController>();
 
   late WebViewController _webViewController;
+  late String url;
+  List<dynamic> topicsspeak = [
+    'https://www.englishspokencafe.com/i-cant-speak-wednesday/',
+    'https://www.englishspokencafe.com/i-can-speak-wednesday/',
+    'https://www.englishspokencafe.com/i-can-speak-f-wednesday/',
+  ];
 
   @override
   Widget build(BuildContext context) {
+    String initialUrl = topicsspeak[2];
     return Scaffold(
       appBar: AppBar(
+        title: Text('Wednesday'),
+        centerTitle: true,
         leading: IconButton(
           onPressed: () {
             Get.back();
@@ -29,56 +41,49 @@ class _WednesdayState extends State<Wednesday> {
             Icons.arrow_back_ios_new,
           ),
         ),
-        centerTitle: true,
-        elevation: 0,
         backgroundColor: Colors.black,
-        title: const Text('Wednesday'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: WebView(
-                  initialUrl: 'https://www.englishspokencafe.com/wednesday/',
-                  javascriptMode: JavascriptMode.unrestricted,
-                  onWebViewCreated: (WebViewController webViewController) {
-                    _webViewController = webViewController;
-                    _controller.complete(webViewController);
-                  },
-                  onProgress: (int progress) {
-                    print("WebView is loading(progress:$progress%)");
-                    _webViewController.runJavascript(
-                      "document.getElementsByTagName('header')[0].style.display='none'",
-                    );
-                    _webViewController.runJavascript(
-                      "document.getElementsByTagName('footer')[0].style.display='none'",
-                    );
-                  },
-                  onPageStarted: (String url) {
-                    print('page started loading :$url');
-                    _webViewController.runJavascript(
-                      "document.getElementsByTagName('header')[0].style.display='none'",
-                    );
-                    _webViewController.runJavascript(
-                      "document.getElementsByTagName('footer')[0].style.display='none'",
-                    );
-                  },
-                  onPageFinished: (String url) {
-                    print('Page finished loading: $url');
-                    _webViewController.runJavascript(
-                      "document.getElementsByTagName('header')[0].style.display='none'",
-                    );
-                    _webViewController.runJavascript(
-                      "document.getElementsByTagName('footer')[0].style.display='none'",
-                    );
-                  },
+          ListView.builder(
+            itemCount: 3,
+            shrinkWrap: true,
+            itemBuilder: (BuildContext context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: SizedBox(
+                  width: 50,
+                  height: 60,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      shadowColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          20,
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      Get.to(
+                        Wedensdaytopic(
+                          url: topicsspeak[index],
+                          initialUrl: topicsspeak[index],
+                        ),
+                      );
+                    },
+                    child: Text(
+                      speaklevel[index],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
         ],
       ),

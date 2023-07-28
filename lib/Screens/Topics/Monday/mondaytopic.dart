@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_last/classes/Classe.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Mondaytopic extends StatefulWidget {
-  const Mondaytopic({super.key});
+  const Mondaytopic({super.key, required url, required this.initialUrl});
+  final String initialUrl;
 
   @override
   State<Mondaytopic> createState() => _MondaytopicState();
@@ -16,8 +18,12 @@ class _MondaytopicState extends State<Mondaytopic> {
       Completer<WebViewController>();
 
   late WebViewController _webViewController;
+
+  late String url;
+  int indextitle = 0;
   @override
   Widget build(BuildContext context) {
+    //String initialUrl = topicsspeak[2];
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -31,7 +37,9 @@ class _MondaytopicState extends State<Mondaytopic> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.black,
-        title: const Text('Monday'),
+        title: Text(
+          speaklevel[indextitle],
+        ),
       ),
       body: Column(
         children: [
@@ -42,7 +50,7 @@ class _MondaytopicState extends State<Mondaytopic> {
               child: AspectRatio(
                 aspectRatio: 1,
                 child: WebView(
-                  initialUrl: 'https://www.englishspokencafe.com/monday/',
+                  initialUrl: widget.initialUrl,
                   javascriptMode: JavascriptMode.unrestricted,
                   onWebViewCreated: (
                     WebViewController webViewController,

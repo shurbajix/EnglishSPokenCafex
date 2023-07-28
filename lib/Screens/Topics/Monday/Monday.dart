@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_last/Screens/Topics/Monday/mondaytopic.dart';
 import 'package:get/get.dart';
 
 import '../../../classes/Classe.dart';
@@ -19,11 +20,17 @@ class Mondays extends StatefulWidget {
 }
 
 class _MondaysState extends State<Mondays> {
+  List<dynamic> topicsspeak = [
+    'https://www.englishspokencafe.com/i-cant-speak-monday/',
+    'https://www.englishspokencafe.com/i-can-speak-monday/',
+    'https://www.englishspokencafe.com/i-can-speak-f-monday/',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Speak level'),
+        title: Text('Monday'),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -57,7 +64,14 @@ class _MondaysState extends State<Mondays> {
                         ),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(
+                        Mondaytopic(
+                          url: topicsspeak[index],
+                          initialUrl: topicsspeak[index],
+                        ),
+                      );
+                    },
                     child: Text(
                       speaklevel[index],
                       textAlign: TextAlign.center,

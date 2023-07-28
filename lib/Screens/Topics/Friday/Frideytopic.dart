@@ -7,8 +7,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 
+import '../../../classes/Classe.dart';
+
 class Freidytopic extends StatefulWidget {
-  const Freidytopic({super.key});
+  const Freidytopic({super.key, required url, required this.initialUrl});
+  final String initialUrl;
 
   @override
   State<Freidytopic> createState() => _FreidytopicState();
@@ -114,8 +117,14 @@ class _FreidytopicState extends State<Freidytopic> {
     );
   }
 
+  late String url;
+  // title list to add the list
+  int indextitle = 0;
+
+//----------------------------//
   @override
   Widget build(BuildContext context) {
+    //String initialUrl = topicsspeak[2];
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -133,7 +142,9 @@ class _FreidytopicState extends State<Freidytopic> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.black,
-        title: const Text('Friday'),
+        title: Text(
+          speaklevel[indextitle],
+        ),
         actions: [
           PopupMenuButton(
             itemBuilder: (BuildContext context) => <PopupMenuEntry>[
@@ -173,7 +184,7 @@ class _FreidytopicState extends State<Freidytopic> {
                     child: AspectRatio(
                       aspectRatio: 1,
                       child: WebView(
-                        initialUrl: 'https://www.englishspokencafe.com/friday/',
+                        initialUrl: widget.initialUrl,
                         javascriptMode: JavascriptMode.unrestricted,
                         onWebViewCreated:
                             (WebViewController webViewController) {

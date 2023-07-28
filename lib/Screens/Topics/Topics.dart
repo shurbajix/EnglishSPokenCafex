@@ -49,7 +49,7 @@ class _TopicsState extends State<Topics> {
                   onPressed: () {
                     Get.to(
                       Topicelist[index],
-                      transition: Transition.circularReveal,
+                      //transition: Transition.circularReveal,
                     );
                   },
                   child: Card(

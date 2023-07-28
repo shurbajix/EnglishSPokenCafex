@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_last/Screens/Topics/Friday/Frideytopic.dart';
 import 'package:flutter_application_last/classes/Classe.dart';
 import 'package:get/get.dart';
 
@@ -10,11 +11,16 @@ class Friday extends StatefulWidget {
 }
 
 class _FridayState extends State<Friday> {
+  List<dynamic> topicsspeak = [
+    'https://www.englishspokencafe.com/i-cant-speak-friday/',
+    'https://www.englishspokencafe.com/i-can-speak-friday/',
+    'https://www.englishspokencafe.com/i-can-speak-f-friday/',
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Speak level'),
+        title: Text('Friday'),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -48,7 +54,14 @@ class _FridayState extends State<Friday> {
                         ),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.to(
+                        Freidytopic(
+                          url: topicsspeak[index],
+                          initialUrl: topicsspeak[index],
+                        ),
+                      );
+                    },
                     child: Text(
                       speaklevel[index],
                       textAlign: TextAlign.center,

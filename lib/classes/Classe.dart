@@ -99,7 +99,7 @@ List GatherJunior = [
   'images/Junior-3-gather.png',
 ];
 
-List speaklevel = [
+final List<String> speaklevel = [
   'I can\'t Speak',
   'I can Speak',
   'I Can Speak Fluently',

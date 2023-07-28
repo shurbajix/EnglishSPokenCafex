@@ -5,8 +5,8 @@ import 'package:flutter_application_last/classes/Classe.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class Wedensdaytopic extends StatefulWidget {
-  const Wedensdaytopic({
+class Weekendtopic extends StatefulWidget {
+  const Weekendtopic({
     super.key,
     required url,
     required this.initialUrl,
@@ -14,14 +14,15 @@ class Wedensdaytopic extends StatefulWidget {
   final String initialUrl;
 
   @override
-  State<Wedensdaytopic> createState() => _WedensdaytopicState();
+  State<Weekendtopic> createState() => _WeekendtopicState();
 }
 
-class _WedensdaytopicState extends State<Wedensdaytopic> {
+class _WeekendtopicState extends State<Weekendtopic> {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
 
   late WebViewController _webViewController;
+
   late String url;
   List<dynamic> topicsspeak = [
     'https://www.englishspokencafe.com/i-cant-speak-monday/',
